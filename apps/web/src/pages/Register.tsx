@@ -11,10 +11,10 @@ const RegisterContainer = styled.div`
 `;
 
 const RegisterCard = styled.div<{ theme: 'light' | 'dark' }>`
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 `;
 
 const Title = styled.h1`
@@ -42,15 +42,19 @@ const Label = styled.label`
 
 const Input = styled.input<{ theme: 'light' | 'dark'; error?: boolean }>`
   padding: 0.8rem;
-  border: 1px solid ${props => props.error ? '#dc3545' : props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
+  border: 1px solid
+    ${props =>
+      props.error ? '#dc3545' : props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
   border-radius: 4px;
   font-size: 1rem;
-  background-color: ${props => props.theme === 'dark' ? '#1a1a1a' : 'white'};
+  background-color: ${props => (props.theme === 'dark' ? '#1a1a1a' : 'white')};
   color: inherit;
 
   &:focus {
-    border-color: ${props => props.error ? '#dc3545' : '#0071e3'};
-    box-shadow: 0 0 0 3px ${props => props.error ? 'rgba(220, 53, 69, 0.1)' : 'rgba(0, 113, 227, 0.1)'};
+    border-color: ${props => (props.error ? '#dc3545' : '#0071e3')};
+    box-shadow: 0 0 0 3px
+      ${props =>
+        props.error ? 'rgba(220, 53, 69, 0.1)' : 'rgba(0, 113, 227, 0.1)'};
     outline: none;
   }
 `;
@@ -149,7 +153,7 @@ export default function Register() {
       navigate('/');
     } catch (err) {
       setErrors({
-        username: 'Username already exists'
+        username: 'Username already exists',
       });
     } finally {
       setIsLoading(false);
@@ -167,7 +171,7 @@ export default function Register() {
               id="username"
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={e => setUsername(e.target.value)}
               required
               theme={theme}
               error={!!errors.username}
@@ -180,7 +184,7 @@ export default function Register() {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               required
               theme={theme}
               error={!!errors.password}
@@ -193,7 +197,7 @@ export default function Register() {
               id="confirmPassword"
               type="password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={e => setConfirmPassword(e.target.value)}
               required
               theme={theme}
               error={!!errors.confirmPassword}
@@ -206,10 +210,8 @@ export default function Register() {
             {isLoading ? 'Creating Account...' : 'Register'}
           </SubmitButton>
         </Form>
-        <LoginLink to="/login">
-          Already have an account? Login here
-        </LoginLink>
+        <LoginLink to="/login">Already have an account? Login here</LoginLink>
       </RegisterCard>
     </RegisterContainer>
   );
-} 
+}

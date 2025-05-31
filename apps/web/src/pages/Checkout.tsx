@@ -21,17 +21,17 @@ const CheckoutContainer = styled.div`
 `;
 
 const CheckoutForm = styled.form<{ theme: 'light' | 'dark' }>`
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 `;
 
 const OrderSummary = styled.div<{ theme: 'light' | 'dark' }>`
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   height: fit-content;
 `;
 
@@ -59,13 +59,15 @@ const Label = styled.label`
 const Input = styled.input<{ theme: 'light' | 'dark'; error?: boolean }>`
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid ${props => props.error ? '#dc3545' : props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
+  border: 1px solid
+    ${props =>
+      props.error ? '#dc3545' : props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
   border-radius: 4px;
-  background: ${props => props.theme === 'dark' ? '#1a1a1a' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#1a1a1a' : 'white')};
   color: inherit;
 
   &:focus {
-    border-color: ${props => props.error ? '#dc3545' : '#0071e3'};
+    border-color: ${props => (props.error ? '#dc3545' : '#0071e3')};
     outline: none;
   }
 `;
@@ -89,7 +91,8 @@ const SummaryTotal = styled(SummaryItem)`
   font-weight: 600;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#eee'};
+  border-top: 1px solid
+    ${props => (props.theme === 'dark' ? '#3d3d3d' : '#eee')};
 `;
 
 const PlaceOrderButton = styled.button`
@@ -137,7 +140,7 @@ export default function Checkout() {
     phone: '',
     address: '',
     city: '',
-    postalCode: ''
+    postalCode: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -191,13 +194,13 @@ export default function Checkout() {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
@@ -223,8 +226,8 @@ export default function Checkout() {
         shipping,
         customer: {
           ...formData,
-          userId: user?.id
-        }
+          userId: user?.id,
+        },
       });
 
       clearCart();
@@ -253,7 +256,9 @@ export default function Checkout() {
               error={!!errors.firstName}
               theme={theme}
             />
-            {errors.firstName && <ErrorMessage>{errors.firstName}</ErrorMessage>}
+            {errors.firstName && (
+              <ErrorMessage>{errors.firstName}</ErrorMessage>
+            )}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="lastName">Last Name</Label>
@@ -335,7 +340,9 @@ export default function Checkout() {
               error={!!errors.postalCode}
               theme={theme}
             />
-            {errors.postalCode && <ErrorMessage>{errors.postalCode}</ErrorMessage>}
+            {errors.postalCode && (
+              <ErrorMessage>{errors.postalCode}</ErrorMessage>
+            )}
           </FormGroup>
         </FormSection>
       </CheckoutForm>
@@ -354,10 +361,13 @@ export default function Checkout() {
           <span>Total</span>
           <span>Rs. {total.toLocaleString('en-LK')}</span>
         </SummaryTotal>
-        <PlaceOrderButton type="submit" disabled={isSubmitting || items.length === 0}>
+        <PlaceOrderButton
+          type="submit"
+          disabled={isSubmitting || items.length === 0}
+        >
           {isSubmitting ? 'Placing Order...' : 'Place Order'}
         </PlaceOrderButton>
       </OrderSummary>
     </CheckoutContainer>
   );
-} 
+}

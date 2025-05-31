@@ -16,5 +16,5 @@ alwaysApply: true
 
 ## Error handling
 
-- Always handle errors and edge cases.
+- Always handle errors, lint issues and edge cases.
 - If an error is not handled, it should at least be logged.

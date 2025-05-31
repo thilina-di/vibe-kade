@@ -12,6 +12,9 @@ const orderRoutes = require('./routes/orders');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Enable trust proxy
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet({
     contentSecurityPolicy: {
@@ -40,15 +43,23 @@ app.use('/assets', express.static(path.join(__dirname, '../public/assets')));
 
 // Rate limiting
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100 // limit each IP to 100 requests per windowMs
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 1000, // limit each IP to 1000 requests per minute
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: 'Too many requests, please try again later.'
 });
-app.use(limiter);
+
+// Apply rate limiting only to API routes that need protection
+app.use('/api/auth', limiter);
+app.use('/api/cart', limiter);
+app.use('/api/orders', limiter);
+app.use('/api/admin', limiter);
 
 // Body parsing middleware
 app.use(express.json());
 
-// Routes
+// Mount routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);

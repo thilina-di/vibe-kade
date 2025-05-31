@@ -11,10 +11,10 @@ const NotFoundContainer = styled.div`
 `;
 
 const NotFoundCard = styled.div<{ theme: 'light' | 'dark' }>`
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   padding: 3rem 2rem;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 `;
 
 const ErrorCode = styled.h1`
@@ -32,7 +32,7 @@ const Title = styled.h2`
 `;
 
 const Description = styled.p<{ theme: 'light' | 'dark' }>`
-  color: ${props => props.theme === 'dark' ? '#999' : '#666'};
+  color: ${props => (props.theme === 'dark' ? '#999' : '#666')};
   margin-bottom: 2rem;
 `;
 
@@ -60,11 +60,11 @@ export default function NotFound() {
         <ErrorCode>404</ErrorCode>
         <Title>Page Not Found</Title>
         <Description theme={theme}>
-          The page you are looking for might have been removed, had its name changed,
-          or is temporarily unavailable.
+          The page you are looking for might have been removed, had its name
+          changed, or is temporarily unavailable.
         </Description>
         <HomeLink to="/">Return to Home</HomeLink>
       </NotFoundCard>
     </NotFoundContainer>
   );
-} 
+}

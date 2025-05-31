@@ -1,12 +1,28 @@
 const { carts } = require('../data/carts');
 const { products } = require('../data/products');
 
+// Helper function to format cart items with product details
+const formatCartItems = (items) => {
+    return items.map(item => {
+        const product = products.find(p => p.id === parseInt(item.productId));
+        return {
+            productId: item.productId.toString(),
+            quantity: item.quantity,
+            price: item.price,
+            name: product?.name || 'Unknown Product',
+            image: product?.image || ''
+        };
+    });
+};
+
 // Get cart
 const getCart = (req, res) => {
     try {
         const userId = req.user.id;
         const cart = carts.find(c => c.userId === userId) || { userId, items: [] };
-        res.json(cart);
+        res.json({
+            items: formatCartItems(cart.items)
+        });
     } catch (error) {
         console.error('Error getting cart:', error);
         res.status(500).json({ message: 'Error fetching cart' });
@@ -33,18 +49,20 @@ const addToCart = (req, res) => {
         }
 
         // Check if product already in cart
-        const existingItem = cart.items.find(item => item.productId === productId);
+        const existingItem = cart.items.find(item => item.productId === parseInt(productId));
         if (existingItem) {
             existingItem.quantity += quantity;
         } else {
             cart.items.push({
-                productId,
+                productId: parseInt(productId),
                 quantity,
                 price: product.price
             });
         }
 
-        res.json(cart);
+        res.json({
+            items: formatCartItems(cart.items)
+        });
     } catch (error) {
         console.error('Error adding to cart:', error);
         res.status(500).json({ message: 'Error adding to cart' });
@@ -74,7 +92,9 @@ const updateCartItem = (req, res) => {
             cart.items = cart.items.filter(item => item.productId !== parseInt(id));
         }
 
-        res.json(cart);
+        res.json({
+            items: formatCartItems(cart.items)
+        });
     } catch (error) {
         console.error('Error updating cart:', error);
         res.status(500).json({ message: 'Error updating cart' });
@@ -93,7 +113,9 @@ const removeFromCart = (req, res) => {
         }
 
         cart.items = cart.items.filter(item => item.productId !== parseInt(id));
-        res.status(204).send();
+        res.json({
+            items: formatCartItems(cart.items)
+        });
     } catch (error) {
         console.error('Error removing from cart:', error);
         res.status(500).json({ message: 'Error removing from cart' });

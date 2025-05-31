@@ -9,17 +9,20 @@ const LayoutContainer = styled.div<{ theme: 'light' | 'dark' }>`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme === 'dark' ? '#1a1a1a' : '#f5f5f7'};
-  color: ${props => props.theme === 'dark' ? '#ffffff' : '#1d1d1f'};
+  background-color: ${props =>
+    props.theme === 'dark' ? '#1a1a1a' : '#f5f5f7'};
+  color: ${props => (props.theme === 'dark' ? '#ffffff' : '#1d1d1f')};
 `;
 
 const Header = styled.header<{ theme: 'light' | 'dark' }>`
-  background-color: ${props => props.theme === 'dark' ? '#2d2d2d' : 'rgba(255, 255, 255, 0.8)'};
+  background-color: ${props =>
+    props.theme === 'dark' ? '#2d2d2d' : 'rgba(255, 255, 255, 0.8)'};
   backdrop-filter: saturate(180%) blur(20px);
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
+  border-bottom: 1px solid
+    ${props => (props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7')};
 `;
 
 const Nav = styled.nav`
@@ -48,7 +51,7 @@ const NavLinks = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+    background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
     padding: 0.75rem;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     justify-content: space-around;
@@ -64,7 +67,7 @@ const NavLink = styled(Link)<{ $active?: boolean }>`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  opacity: ${props => props.$active ? 1 : 0.7};
+  opacity: ${props => (props.$active ? 1 : 0.7)};
 
   &:hover {
     opacity: 1;
@@ -94,10 +97,11 @@ const Main = styled.main`
 `;
 
 const Footer = styled.footer<{ theme: 'light' | 'dark' }>`
-  background-color: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background-color: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   padding: 2rem;
   text-align: center;
-  border-top: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
+  border-top: 1px solid
+    ${props => (props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7')};
 `;
 
 const ThemeToggle = styled.button<{ theme: 'light' | 'dark' }>`
@@ -129,12 +133,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <NavLinks theme={theme}>
             <NavLink to="/products">Products</NavLink>
             <NavLink to="/cart">
-              Cart {cartItemsCount > 0 && <CartBadge>{cartItemsCount}</CartBadge>}
+              Cart{' '}
+              {cartItemsCount > 0 && <CartBadge>{cartItemsCount}</CartBadge>}
             </NavLink>
             {user ? (
               <>
                 {user.role === 'admin' && <NavLink to="/admin">Admin</NavLink>}
-                <NavLink to="#" onClick={logout}>Logout</NavLink>
+                <NavLink to="#" onClick={logout}>
+                  Logout
+                </NavLink>
               </>
             ) : (
               <NavLink to="/login">Login</NavLink>
@@ -151,4 +158,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </Footer>
     </LayoutContainer>
   );
-} 
+}

@@ -1,21 +1,40 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
   role?: 'admin' | 'customer';
+  allowGuest?: boolean;
 }
 
-export default function ProtectedRoute({ children, role }: ProtectedRouteProps) {
-  const { user, isLoading } = useAuth();
+export default function ProtectedRoute({
+  children,
+  role,
+  allowGuest = false,
+}: ProtectedRouteProps) {
+  const { user, isLoading, isAuthenticated } = useAuth();
+  const location = useLocation();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="spinner" />
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
   }
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
+  // Allow guest access if specified
+  if (allowGuest && !isAuthenticated) {
+    return <>{children}</>;
+  }
+
+  if (!isAuthenticated || !user) {
+    // Save the attempted URL
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   if (role && user.role !== role) {
@@ -23,4 +42,4 @@ export default function ProtectedRoute({ children, role }: ProtectedRouteProps) 
   }
 
   return <>{children}</>;
-} 
+}

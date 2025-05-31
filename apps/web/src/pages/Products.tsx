@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import api from '../lib/api';
 import { useCart } from '../contexts/CartContext';
 import { useTheme } from '../contexts/ThemeContext';
 import styled from '@emotion/styled';
 import { debounce } from 'lodash';
+import { toast } from 'react-toastify';
 
 interface Product {
   id: string;
@@ -21,14 +22,14 @@ const ProductsContainer = styled.div`
 `;
 
 const FiltersContainer = styled.div<{ theme: 'light' | 'dark' }>`
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 2rem;
   display: flex;
   gap: 1.5rem;
   align-items: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
 `;
 
@@ -42,7 +43,7 @@ const SearchBox = styled.div`
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: ${props => props.theme === 'dark' ? '#666' : '#999'};
+    color: ${props => (props.theme === 'dark' ? '#666' : '#999')};
     pointer-events: none;
   }
 `;
@@ -50,18 +51,20 @@ const SearchBox = styled.div`
 const SearchInput = styled.input<{ theme: 'light' | 'dark' }>`
   width: 100%;
   padding: 0.8rem 1rem 0.8rem 2.5rem;
-  border: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
+  border: 1px solid ${props => (props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7')};
   border-radius: 4px;
   font-size: 0.95rem;
   transition: all 0.2s;
-  background-color: ${props => props.theme === 'dark' ? '#1a1a1a' : '#f5f5f7'};
+  background-color: ${props =>
+    props.theme === 'dark' ? '#1a1a1a' : '#f5f5f7'};
   color: inherit;
 
   &:focus {
     border-color: #0071e3;
     box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
     outline: none;
-    background-color: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+    background-color: ${props =>
+      props.theme === 'dark' ? '#2d2d2d' : 'white'};
   }
 `;
 
@@ -75,7 +78,7 @@ const FilterGroup = styled.div`
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: ${props => props.theme === 'dark' ? '#666' : '#999'};
+    color: ${props => (props.theme === 'dark' ? '#666' : '#999')};
     pointer-events: none;
   }
 `;
@@ -83,10 +86,11 @@ const FilterGroup = styled.div`
 const Select = styled.select<{ theme: 'light' | 'dark' }>`
   width: 100%;
   padding: 0.8rem 1rem 0.8rem 2.5rem;
-  border: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
+  border: 1px solid ${props => (props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7')};
   border-radius: 4px;
   font-size: 0.95rem;
-  background-color: ${props => props.theme === 'dark' ? '#1a1a1a' : '#f5f5f7'};
+  background-color: ${props =>
+    props.theme === 'dark' ? '#1a1a1a' : '#f5f5f7'};
   cursor: pointer;
   appearance: none;
   transition: all 0.2s;
@@ -96,7 +100,8 @@ const Select = styled.select<{ theme: 'light' | 'dark' }>`
     border-color: #0071e3;
     box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
     outline: none;
-    background-color: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+    background-color: ${props =>
+      props.theme === 'dark' ? '#2d2d2d' : 'white'};
   }
 `;
 
@@ -107,20 +112,20 @@ const ProductsGrid = styled.div`
 `;
 
 const ProductCard = styled.div<{ theme: 'light' | 'dark' }>`
-  background-color: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background-color: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#eee'};
+  border: 1px solid ${props => (props.theme === 'dark' ? '#3d3d3d' : '#eee')};
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -128,8 +133,9 @@ const ProductImage = styled.div`
   position: relative;
   padding-top: 100%;
   overflow: hidden;
-  background-color: ${props => props.theme === 'dark' ? '#1a1a1a' : 'white'};
-  border-bottom: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#eee'};
+  background-color: ${props => (props.theme === 'dark' ? '#1a1a1a' : 'white')};
+  border-bottom: 1px solid
+    ${props => (props.theme === 'dark' ? '#3d3d3d' : '#eee')};
 
   img {
     position: absolute;
@@ -172,10 +178,10 @@ const ProductPrice = styled.div`
   margin: 4px 0;
 
   &::before {
-    content: "Starting ";
+    content: 'Starting ';
     font-size: 0.8rem;
     font-weight: normal;
-    color: ${props => props.theme === 'dark' ? '#999' : '#666'};
+    color: ${props => (props.theme === 'dark' ? '#999' : '#666')};
   }
 `;
 
@@ -224,14 +230,18 @@ export default function Products() {
   const fetchProducts = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get<Product[]>('/api/products');
+      console.log('Fetching products...');
+      const response = await api.get<Product[]>('/products');
+      console.log('Products response:', response.data);
       setProducts(response.data);
       const uniqueCategories = Array.from(
         new Set(response.data.map((p: Product) => p.category))
       );
+      console.log('Unique categories:', uniqueCategories);
       setCategories(uniqueCategories);
     } catch (error) {
       console.error('Failed to fetch products:', error);
+      toast.error('Failed to load products');
     } finally {
       setIsLoading(false);
     }
@@ -241,24 +251,32 @@ export default function Products() {
     void fetchProducts();
   }, [fetchProducts]);
 
-  useEffect(() => {
-    filterProducts();
-  }, [searchTerm, selectedCategory, sortBy, products]);
-
   const filterProducts = useCallback(() => {
+    console.log('Running filter with:', {
+      productsLength: products.length,
+      searchTerm,
+      selectedCategory,
+      sortBy,
+    });
+
     let filtered = [...products];
 
     // Apply search filter
     if (searchTerm) {
-      filtered = filtered.filter(product =>
-        (product.name?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
-        (product.description?.toLowerCase() || '').includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        product =>
+          product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description?.toLowerCase().includes(searchTerm.toLowerCase())
       );
+      console.log('After search filter:', filtered.length);
     }
 
     // Apply category filter
     if (selectedCategory) {
-      filtered = filtered.filter(product => product.category === selectedCategory);
+      filtered = filtered.filter(
+        product => product.category === selectedCategory
+      );
+      console.log('After category filter:', filtered.length);
     }
 
     // Apply sorting
@@ -277,10 +295,21 @@ export default function Products() {
             return 0;
         }
       });
+      console.log('After sorting:', filtered.length);
     }
 
+    console.log('Setting filtered products:', filtered);
     setFilteredProducts(filtered);
   }, [products, searchTerm, selectedCategory, sortBy]);
+
+  useEffect(() => {
+    console.log('Current products:', products);
+    console.log('Current filtered products:', filteredProducts);
+    console.log('Current search term:', searchTerm);
+    console.log('Current category:', selectedCategory);
+    console.log('Current sort:', sortBy);
+    filterProducts();
+  }, [filterProducts]);
 
   const handleSearch = debounce((value: string) => {
     setSearchTerm(value);
@@ -306,7 +335,7 @@ export default function Products() {
           <SearchInput
             type="text"
             placeholder="Search products..."
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={e => handleSearch(e.target.value)}
             theme={theme}
           />
         </SearchBox>
@@ -314,12 +343,14 @@ export default function Products() {
           <i className="fas fa-filter" />
           <Select
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={e => setSelectedCategory(e.target.value)}
             theme={theme}
           >
             <option value="">All Categories</option>
             {categories.map(category => (
-              <option key={category} value={category}>{category}</option>
+              <option key={category} value={category}>
+                {category}
+              </option>
             ))}
           </Select>
         </FilterGroup>
@@ -327,7 +358,7 @@ export default function Products() {
           <i className="fas fa-sort" />
           <Select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
+            onChange={e => setSortBy(e.target.value)}
             theme={theme}
           >
             <option value="">Sort By</option>
@@ -346,7 +377,7 @@ export default function Products() {
               <img
                 src={product.image}
                 alt={product.name}
-                onError={(e) => {
+                onError={e => {
                   const target = e.target as HTMLImageElement;
                   target.src = '/assets/images/placeholder.jpg';
                 }}
@@ -367,4 +398,4 @@ export default function Products() {
       </ProductsGrid>
     </ProductsContainer>
   );
-} 
+}

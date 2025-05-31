@@ -18,18 +18,18 @@ const CartHeader = styled.div`
 const EmptyCart = styled.div<{ theme: 'light' | 'dark' }>`
   text-align: center;
   padding: 3rem 1rem;
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   i {
     font-size: 3rem;
-    color: ${props => props.theme === 'dark' ? '#666' : '#ccc'};
+    color: ${props => (props.theme === 'dark' ? '#666' : '#ccc')};
     margin-bottom: 1rem;
   }
 
   p {
-    color: ${props => props.theme === 'dark' ? '#999' : '#666'};
+    color: ${props => (props.theme === 'dark' ? '#999' : '#666')};
     margin-bottom: 1.5rem;
   }
 `;
@@ -50,9 +50,9 @@ const ReturnToShop = styled(Link)`
 `;
 
 const CartItems = styled.div<{ theme: 'light' | 'dark' }>`
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
 `;
 
@@ -62,7 +62,8 @@ const CartItem = styled.div<{ theme: 'light' | 'dark' }>`
   gap: 1.5rem;
   align-items: center;
   padding: 1.5rem;
-  border-bottom: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#eee'};
+  border-bottom: 1px solid
+    ${props => (props.theme === 'dark' ? '#3d3d3d' : '#eee')};
 
   &:last-child {
     border-bottom: none;
@@ -80,8 +81,8 @@ const CartItemImage = styled.img`
   height: 100px;
   object-fit: contain;
   border-radius: 4px;
-  border: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#eee'};
-  background: ${props => props.theme === 'dark' ? '#1a1a1a' : 'white'};
+  border: 1px solid ${props => (props.theme === 'dark' ? '#3d3d3d' : '#eee')};
+  background: ${props => (props.theme === 'dark' ? '#1a1a1a' : 'white')};
   padding: 0.5rem;
 
   @media (max-width: 768px) {
@@ -126,8 +127,8 @@ const CartQuantity = styled.div`
 const QuantityButton = styled.button<{ theme: 'light' | 'dark' }>`
   width: 32px;
   height: 32px;
-  border: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#ddd'};
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  border: 1px solid ${props => (props.theme === 'dark' ? '#3d3d3d' : '#ddd')};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -146,9 +147,9 @@ const QuantityInput = styled.input<{ theme: 'light' | 'dark' }>`
   width: 50px;
   height: 32px;
   text-align: center;
-  border: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#ddd'};
+  border: 1px solid ${props => (props.theme === 'dark' ? '#3d3d3d' : '#ddd')};
   border-radius: 4px;
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   color: inherit;
 `;
 
@@ -171,9 +172,9 @@ const RemoveButton = styled.button`
 `;
 
 const CartSummary = styled.div<{ theme: 'light' | 'dark' }>`
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
 `;
 
@@ -181,19 +182,23 @@ const SummaryRow = styled.div<{ total?: boolean; theme: 'light' | 'dark' }>`
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.75rem;
-  color: ${props => props.total ? 'inherit' : props.theme === 'dark' ? '#999' : '#666'};
-  font-size: ${props => props.total ? '1.2rem' : '1rem'};
-  font-weight: ${props => props.total ? '600' : '400'};
-  padding-top: ${props => props.total ? '1rem' : '0'};
-  margin-top: ${props => props.total ? '1rem' : '0'};
-  border-top: ${props => props.total ? `1px solid ${props.theme === 'dark' ? '#3d3d3d' : '#eee'}` : 'none'};
+  color: ${props =>
+    props.total ? 'inherit' : props.theme === 'dark' ? '#999' : '#666'};
+  font-size: ${props => (props.total ? '1.2rem' : '1rem')};
+  font-weight: ${props => (props.total ? '600' : '400')};
+  padding-top: ${props => (props.total ? '1rem' : '0')};
+  margin-top: ${props => (props.total ? '1rem' : '0')};
+  border-top: ${props =>
+    props.total
+      ? `1px solid ${props.theme === 'dark' ? '#3d3d3d' : '#eee'}`
+      : 'none'};
 `;
 
 const SummaryTotal = styled.div<{ theme: 'light' | 'dark' }>`
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.75rem;
-  color: ${props => props.theme === 'dark' ? '#999' : '#666'};
+  color: ${props => (props.theme === 'dark' ? '#999' : '#666')};
   font-size: 1rem;
   font-weight: 400;
 `;
@@ -225,14 +230,22 @@ const CheckoutButton = styled.button`
 const CartNotice = styled.div<{ theme: 'light' | 'dark' }>`
   text-align: center;
   padding: 1rem;
-  background: ${props => props.theme === 'dark' ? '#1a1a1a' : '#f8f9fa'};
+  background: ${props => (props.theme === 'dark' ? '#1a1a1a' : '#f8f9fa')};
   border-radius: 4px;
   margin-top: 1rem;
-  color: ${props => props.theme === 'dark' ? '#999' : '#666'};
+  color: ${props => (props.theme === 'dark' ? '#999' : '#666')};
 `;
 
 export default function Cart() {
-  const { items, removeItem, updateQuantity, subtotal, shipping, total, isLoading } = useCart();
+  const {
+    items,
+    removeItem,
+    updateQuantity,
+    subtotal,
+    shipping,
+    total,
+    isLoading,
+  } = useCart();
   const { theme } = useTheme();
   const navigate = useNavigate();
 
@@ -246,7 +259,10 @@ export default function Cart() {
         <EmptyCart theme={theme}>
           <i className="fas fa-shopping-cart" />
           <h2>Your cart is currently empty</h2>
-          <p>Before proceed to checkout you must add some products to your shopping cart.</p>
+          <p>
+            Before proceed to checkout you must add some products to your
+            shopping cart.
+          </p>
           <ReturnToShop to="/products">Return to shop</ReturnToShop>
         </EmptyCart>
       </CartContainer>
@@ -261,12 +277,12 @@ export default function Cart() {
 
       <CartItems theme={theme}>
         {items.map(item => (
-          <CartItem key={item.id} theme={theme}>
-            <CartItemImage 
-              src={item.image} 
-              alt={item.name} 
+          <CartItem key={item.productId} theme={theme}>
+            <CartItemImage
+              src={item.image}
+              alt={item.name}
               theme={theme}
-              onError={(e) => {
+              onError={e => {
                 const target = e.target as HTMLImageElement;
                 target.src = '/assets/images/placeholder.jpg';
               }}
@@ -278,9 +294,11 @@ export default function Cart() {
               Rs. {item.price.toLocaleString('en-LK')}
             </CartItemPrice>
             <CartQuantity>
-              <QuantityButton 
+              <QuantityButton
                 theme={theme}
-                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                onClick={() =>
+                  updateQuantity(item.productId, item.quantity - 1)
+                }
                 disabled={item.quantity <= 1}
               >
                 <i className="fas fa-minus" />
@@ -290,16 +308,20 @@ export default function Cart() {
                 value={item.quantity}
                 min="1"
                 theme={theme}
-                onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
+                onChange={e =>
+                  updateQuantity(item.productId, parseInt(e.target.value))
+                }
               />
-              <QuantityButton 
+              <QuantityButton
                 theme={theme}
-                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                onClick={() =>
+                  updateQuantity(item.productId, item.quantity + 1)
+                }
               >
                 <i className="fas fa-plus" />
               </QuantityButton>
             </CartQuantity>
-            <RemoveButton onClick={() => removeItem(item.id)}>
+            <RemoveButton onClick={() => removeItem(item.productId)}>
               <i className="fas fa-trash-alt" />
             </RemoveButton>
           </CartItem>
@@ -324,13 +346,17 @@ export default function Cart() {
           <span>Total</span>
           <span>Rs. {total.toLocaleString('en-LK')}</span>
         </SummaryTotal>
-        <CheckoutButton onClick={() => navigate('/checkout')} disabled={items.length === 0}>
+        <CheckoutButton
+          onClick={() => navigate('/checkout')}
+          disabled={items.length === 0}
+        >
           Proceed to Checkout
         </CheckoutButton>
         <CartNotice theme={theme}>
-          <i className="fas fa-truck" /> Free delivery for orders above Rs. 15,000
+          <i className="fas fa-truck" /> Free delivery for orders above Rs.
+          15,000
         </CartNotice>
       </CartSummary>
     </CartContainer>
   );
-} 
+}

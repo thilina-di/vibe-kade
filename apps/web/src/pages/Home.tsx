@@ -26,7 +26,11 @@ const Hero = styled.div<{ theme: 'light' | 'dark' }>`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
     pointer-events: none;
   }
 
@@ -34,7 +38,7 @@ const Hero = styled.div<{ theme: 'light' | 'dark' }>`
     font-size: 2.5rem;
     margin-bottom: 1rem;
     font-weight: 600;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   p {
@@ -81,9 +85,9 @@ const FeaturesGrid = styled.div`
 const FeatureCard = styled.div<{ theme: 'light' | 'dark' }>`
   text-align: center;
   padding: 2rem;
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   i {
     font-size: 2.5rem;
@@ -98,7 +102,7 @@ const FeatureCard = styled.div<{ theme: 'light' | 'dark' }>`
   }
 
   p {
-    color: ${props => props.theme === 'dark' ? '#999' : '#666'};
+    color: ${props => (props.theme === 'dark' ? '#999' : '#666')};
     font-size: 0.9rem;
   }
 `;
@@ -138,4 +142,4 @@ export default function Home() {
       </FeaturesGrid>
     </HomeContainer>
   );
-} 
+}

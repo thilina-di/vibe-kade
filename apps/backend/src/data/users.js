@@ -4,11 +4,10 @@ const bcrypt = require('bcryptjs');
 const users = [
     {
         id: 1,
-        email: 'admin@vibekade.lk',
-        // admin123
-        password: '$2a$10$HRvB.KNHdSUDZHKiI5S/K.yD6AWiOFOPxNK/8NNUgSh0.vIUChZXq',
-        name: 'Admin User',
-        role: 'admin'
+        username: 'admin',
+        password: 'admin123', // Default admin password (in production this should be hashed)
+        role: 'admin',
+        joinDate: new Date()
     },
     {
         id: 2,

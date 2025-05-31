@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import styled from '@emotion/styled';
@@ -11,10 +11,10 @@ const LoginContainer = styled.div`
 `;
 
 const LoginCard = styled.div<{ theme: 'light' | 'dark' }>`
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 `;
 
 const Title = styled.h1`
@@ -42,10 +42,10 @@ const Label = styled.label`
 
 const Input = styled.input<{ theme: 'light' | 'dark' }>`
   padding: 0.8rem;
-  border: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
+  border: 1px solid ${props => (props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7')};
   border-radius: 4px;
   font-size: 1rem;
-  background-color: ${props => props.theme === 'dark' ? '#1a1a1a' : 'white'};
+  background-color: ${props => (props.theme === 'dark' ? '#1a1a1a' : 'white')};
   color: inherit;
 
   &:focus {
@@ -98,23 +98,41 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, isAuthenticated, user } = useAuth();
   const { theme } = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get the redirect path from location state or default to home
+  const from = location.state?.from?.pathname || '/';
+
+  useEffect(() => {
+    // If already authenticated, redirect
+    if (isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, from]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     try {
       await login(username, password);
-      navigate('/');
+      // Login successful - redirect will happen via useEffect
+      // If user is admin, redirect to admin dashboard
+      if (user?.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate(from);
+      }
     } catch (err) {
       setError('Invalid username or password');
+      console.error('Login error:', err);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -129,9 +147,10 @@ export default function Login() {
               id="username"
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={e => setUsername(e.target.value)}
               required
               theme={theme}
+              disabled={isSubmitting}
             />
           </FormGroup>
           <FormGroup>
@@ -140,20 +159,21 @@ export default function Login() {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               required
               theme={theme}
+              disabled={isSubmitting}
             />
           </FormGroup>
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          <SubmitButton type="submit" disabled={isLoading}>
-            {isLoading ? 'Logging in...' : 'Login'}
+          <SubmitButton type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Logging in...' : 'Login'}
           </SubmitButton>
         </Form>
         <RegisterLink to="/register">
-          Don't have an account? Register here
+          Don&apos;t have an account? Register here
         </RegisterLink>
       </LoginCard>
     </LoginContainer>
   );
-} 
+}

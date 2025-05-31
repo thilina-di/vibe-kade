@@ -7,40 +7,45 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 // Login controller
 const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        console.log('Login attempt:', { email }); // Log login attempt
+        const { username, password } = req.body;
+        console.log('Login attempt:', { username });
 
         // Find user
-        const user = users.find(u => u.email === email);
+        const user = users.find(u => u.username === username);
         if (!user) {
-            console.log('User not found:', email);
+            console.log('User not found:', username);
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-        console.log('User found:', { email: user.email, role: user.role });
+        console.log('User found:', { username: user.username, role: user.role });
 
-        // Check password
-        const isValidPassword = await bcrypt.compare(password, user.password);
+        // For the default admin account with unhashed password
+        let isValidPassword = false;
+        if (user.role === 'admin' && !user.password.startsWith('$2')) {
+            isValidPassword = password === user.password;
+        } else {
+            isValidPassword = await bcrypt.compare(password, user.password);
+        }
         console.log('Password check:', { isValid: isValidPassword });
 
         if (!isValidPassword) {
-            console.log('Invalid password for user:', email);
+            console.log('Invalid password for user:', username);
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
         // Generate token
         const token = jwt.sign(
-            { id: user.id, email: user.email, role: user.role },
+            { id: user.id, username: user.username, role: user.role },
             JWT_SECRET,
             { expiresIn: '24h' }
         );
 
-        console.log('Login successful:', { email: user.email, role: user.role });
+        console.log('Login successful:', { username: user.username, role: user.role });
 
         res.json({
             token,
             user: {
                 id: user.id,
-                email: user.email,
+                username: user.username,
                 role: user.role
             }
         });

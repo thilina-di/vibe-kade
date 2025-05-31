@@ -44,36 +44,40 @@ const Tab = styled.button<{ active?: boolean; theme: 'light' | 'dark' }>`
   padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 4px;
-  background: ${props => props.active 
-    ? '#0071e3' 
-    : props.theme === 'dark' ? '#2d2d2d' : 'white'};
-  color: ${props => props.active ? 'white' : 'inherit'};
+  background: ${props =>
+    props.active ? '#0071e3' : props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  color: ${props => (props.active ? 'white' : 'inherit')};
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
-    background: ${props => props.active 
-      ? '#005bbf' 
-      : props.theme === 'dark' ? '#3d3d3d' : '#f5f5f7'};
+    background: ${props =>
+      props.active
+        ? '#005bbf'
+        : props.theme === 'dark'
+          ? '#3d3d3d'
+          : '#f5f5f7'};
   }
 `;
 
 const Table = styled.table<{ theme: 'light' | 'dark' }>`
   width: 100%;
   border-collapse: collapse;
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-  th, td {
+  th,
+  td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#eee'};
+    border-bottom: 1px solid
+      ${props => (props.theme === 'dark' ? '#3d3d3d' : '#eee')};
   }
 
   th {
-    background: ${props => props.theme === 'dark' ? '#1a1a1a' : '#f5f5f7'};
+    background: ${props => (props.theme === 'dark' ? '#1a1a1a' : '#f5f5f7')};
     font-weight: 500;
   }
 
@@ -86,14 +90,15 @@ const ActionButton = styled.button<{ variant?: 'danger' }>`
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
-  background: ${props => props.variant === 'danger' ? '#dc3545' : '#0071e3'};
+  background: ${props => (props.variant === 'danger' ? '#dc3545' : '#0071e3')};
   color: white;
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.2s;
 
   &:hover {
-    background: ${props => props.variant === 'danger' ? '#c82333' : '#005bbf'};
+    background: ${props =>
+      props.variant === 'danger' ? '#c82333' : '#005bbf'};
   }
 
   & + & {
@@ -108,12 +113,18 @@ const StatusBadge = styled.span<{ status: Order['status'] }>`
   font-weight: 500;
   background: ${props => {
     switch (props.status) {
-      case 'pending': return '#ffc107';
-      case 'processing': return '#17a2b8';
-      case 'shipped': return '#0071e3';
-      case 'delivered': return '#28a745';
-      case 'cancelled': return '#dc3545';
-      default: return '#6c757d';
+      case 'pending':
+        return '#ffc107';
+      case 'processing':
+        return '#17a2b8';
+      case 'shipped':
+        return '#0071e3';
+      case 'delivered':
+        return '#28a745';
+      case 'cancelled':
+        return '#dc3545';
+      default:
+        return '#6c757d';
     }
   }};
   color: white;
@@ -124,10 +135,10 @@ const Modal = styled.div<{ theme: 'light' | 'dark' }>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: ${props => props.theme === 'dark' ? '#2d2d2d' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#2d2d2d' : 'white')};
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 90%;
   z-index: 1000;
@@ -139,7 +150,7 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999;
 `;
 
@@ -162,9 +173,9 @@ const Label = styled.label`
 
 const Input = styled.input<{ theme: 'light' | 'dark' }>`
   padding: 0.8rem;
-  border: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
+  border: 1px solid ${props => (props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7')};
   border-radius: 4px;
-  background: ${props => props.theme === 'dark' ? '#1a1a1a' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#1a1a1a' : 'white')};
   color: inherit;
 
   &:focus {
@@ -175,9 +186,9 @@ const Input = styled.input<{ theme: 'light' | 'dark' }>`
 
 const Select = styled.select<{ theme: 'light' | 'dark' }>`
   padding: 0.8rem;
-  border: 1px solid ${props => props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7'};
+  border: 1px solid ${props => (props.theme === 'dark' ? '#3d3d3d' : '#d2d2d7')};
   border-radius: 4px;
-  background: ${props => props.theme === 'dark' ? '#1a1a1a' : 'white'};
+  background: ${props => (props.theme === 'dark' ? '#1a1a1a' : 'white')};
   color: inherit;
 
   &:focus {
@@ -230,12 +241,15 @@ export default function AdminDashboard() {
       category: formData.get('category'),
       description: formData.get('description'),
       image: formData.get('image'),
-      available: formData.get('available') === 'true'
+      available: formData.get('available') === 'true',
     };
 
     try {
       if (editingProduct) {
-        await axios.put(`/api/admin/products/${editingProduct.id}`, productData);
+        await axios.put(
+          `/api/admin/products/${editingProduct.id}`,
+          productData
+        );
         toast.success('Product updated successfully');
       } else {
         await axios.post('/api/admin/products', productData);
@@ -249,7 +263,8 @@ export default function AdminDashboard() {
   };
 
   const handleDeleteProduct = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this product?')) return;
+    if (!window.confirm('Are you sure you want to delete this product?'))
+      return;
 
     try {
       await axios.delete(`/api/admin/products/${id}`);
@@ -260,7 +275,10 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleUpdateOrderStatus = async (orderId: string, status: Order['status']) => {
+  const handleUpdateOrderStatus = async (
+    orderId: string,
+    status: Order['status']
+  ) => {
     try {
       await axios.put(`/api/admin/orders/${orderId}`, { status });
       toast.success('Order status updated successfully');
@@ -273,15 +291,15 @@ export default function AdminDashboard() {
   return (
     <DashboardContainer>
       <TabsContainer>
-        <Tab 
-          active={activeTab === 'products'} 
+        <Tab
+          active={activeTab === 'products'}
           onClick={() => setActiveTab('products')}
           theme={theme}
         >
           Products
         </Tab>
-        <Tab 
-          active={activeTab === 'orders'} 
+        <Tab
+          active={activeTab === 'orders'}
           onClick={() => setActiveTab('orders')}
           theme={theme}
         >
@@ -291,10 +309,12 @@ export default function AdminDashboard() {
 
       {activeTab === 'products' && (
         <>
-          <ActionButton onClick={() => {
-            setEditingProduct(null);
-            setIsModalOpen(true);
-          }}>
+          <ActionButton
+            onClick={() => {
+              setEditingProduct(null);
+              setIsModalOpen(true);
+            }}
+          >
             Add New Product
           </ActionButton>
 
@@ -316,14 +336,16 @@ export default function AdminDashboard() {
                   <td>Rs. {product.price.toLocaleString('en-LK')}</td>
                   <td>{product.available ? 'Available' : 'Unavailable'}</td>
                   <td>
-                    <ActionButton onClick={() => {
-                      setEditingProduct(product);
-                      setIsModalOpen(true);
-                    }}>
+                    <ActionButton
+                      onClick={() => {
+                        setEditingProduct(product);
+                        setIsModalOpen(true);
+                      }}
+                    >
                       Edit
                     </ActionButton>
-                    <ActionButton 
-                      variant="danger" 
+                    <ActionButton
+                      variant="danger"
                       onClick={() => handleDeleteProduct(product.id)}
                     >
                       Delete
@@ -361,7 +383,12 @@ export default function AdminDashboard() {
                 <td>
                   <Select
                     value={order.status}
-                    onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value as Order['status'])}
+                    onChange={e =>
+                      handleUpdateOrderStatus(
+                        order.id,
+                        e.target.value as Order['status']
+                      )
+                    }
                     theme={theme}
                   >
                     <option value="pending">Pending</option>
@@ -461,4 +488,4 @@ export default function AdminDashboard() {
       )}
     </DashboardContainer>
   );
-} 
+}

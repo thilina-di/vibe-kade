@@ -19,7 +19,7 @@ describe('App', () => {
         </ThemeProvider>
       </BrowserRouter>
     );
-    
+
     // Verify that the home page title is rendered
     const titleElement = screen.getByText(/vibe-කඩේ/i);
     expect(titleElement).toBeInTheDocument();
