@@ -7,8 +7,9 @@ A modern e-commerce platform for mobile phones, built with React and Express.js.
 ### Customer Features
 - Browse and search mobile phones by brand and price range
 - View detailed product information
-- Add products to shopping cart
+- Add products to shopping cart without signing in (guest cart)
 - Persistent shopping cart using Context API and localStorage
+- Seamless cart transition when signing in
 - Secure checkout process
 - Order tracking
 - User account management
@@ -118,6 +119,13 @@ vibe-kade/
 - `PUT /api/products/:id` - Update product (admin)
 - `DELETE /api/products/:id` - Delete product (admin)
 
+### Cart
+- `GET /api/cart` - Get cart (guest/authenticated)
+- `POST /api/cart` - Add item to cart (guest/authenticated)
+- `PUT /api/cart/:productId` - Update cart item (guest/authenticated)
+- `DELETE /api/cart/:productId` - Remove cart item (guest/authenticated)
+- `DELETE /api/cart` - Clear cart (guest/authenticated)
+
 ### Orders
 - `GET /api/orders` - Get user orders
 - `GET /api/orders/:id` - Get single order
@@ -147,6 +155,7 @@ vibe-kade/
 - Input validation
 - XSS protection
 - CORS configuration
+- Guest cart security (localStorage encryption)
 
 ## UI Features
 
@@ -154,6 +163,7 @@ vibe-kade/
 - Responsive layout
 - Interactive product cards
 - Dynamic shopping cart with slide-in panel
+- Guest cart functionality
 - Form validation
 - Loading states
 - Error handling

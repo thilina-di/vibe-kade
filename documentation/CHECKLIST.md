@@ -22,7 +22,11 @@
   - [x] Quick cart view
   - [x] Responsive design
   - [x] Smooth animations
-- [ ] Quantity adjustment
+- [x] Guest cart functionality
+  - [x] Add to cart without login
+  - [x] Persistent guest cart
+  - [x] Seamless transition to user cart
+- [x] Quantity adjustment
 - [ ] Save for later
 - [ ] Cart sharing
 
@@ -69,6 +73,7 @@
 ### Security Features
 - [x] Basic authentication
 - [x] Protected routes
+- [x] Guest cart security
 - [ ] Password encryption
 - [ ] HTTPS enforcement
 - [ ] Rate limiting
