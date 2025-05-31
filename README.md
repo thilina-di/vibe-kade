@@ -1,69 +1,192 @@
-# vibe-කඩේ
+# vibe-කඩේ (Vibe-Kade)
 
-## Overview
-This project follows the go-vibe methodology for AI-powered development, ensuring consistent, maintainable, and well-documented code.
+A modern e-commerce platform for mobile phones, built with React and Express.js.
+
+## Features
+
+### Customer Features
+- Browse and search mobile phones by brand and price range
+- View detailed product information
+- Add products to shopping cart
+- Persistent shopping cart using Context API and localStorage
+- Secure checkout process
+- Order tracking
+- User account management
+- Dark/Light theme support
+
+### Admin Features
+- Comprehensive admin dashboard
+- Real-time statistics and analytics
+- Product management (CRUD operations)
+- Order management with status updates
+- User management
+- Revenue tracking
+
+## Tech Stack
+
+### Frontend
+- React 18
+- TypeScript
+- Emotion (Styled Components)
+- React Router
+- Context API for state management
+- Modern CSS features (Grid, Flexbox)
+- Font Awesome icons
+- Responsive design
+
+### Backend
+- Node.js
+- Express.js
+- In-memory data storage
+- RESTful API architecture
 
 ## Getting Started
 
 ### Prerequisites
-[List prerequisites here]
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
 ### Installation
+
+1. Clone the repository:
 ```bash
-# Installation steps will be added here
+git clone https://github.com/yourusername/vibe-kade.git
+cd vibe-kade
 ```
+
+2. Install dependencies:
+```bash
+cd apps/web
+npm install
+cd ../backend
+npm install
+```
+
+3. Start the backend server:
+```bash
+cd apps/backend
+npm start
+```
+
+4. Start the frontend server:
+```bash
+cd apps/web
+npm start
+```
+
+5. Access the application:
+- Frontend: http://localhost:3001
+- Backend API: http://localhost:3000
+
+### Default Admin Credentials
+- Username: admin
+- Password: admin123
 
 ## Project Structure
+
 ```
-project-root/
-├── documentation/    # Project documentation
-│   ├── adr/         # Architecture Decision Records
-│   ├── api/         # API documentation
-│   ├── design/      # Design documents
-│   ├── guides/      # Development guides
-│   └── templates/   # Documentation templates
-├── src/            # Source code
-└── tests/          # Test files
+vibe-kade/
+├── apps/
+│   ├── web/
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   ├── contexts/
+│   │   │   ├── hooks/
+│   │   │   ├── pages/
+│   │   │   ├── styles/
+│   │   │   └── utils/
+│   │   ├── public/
+│   │   └── package.json
+│   └── backend/
+│       ├── src/
+│       │   ├── routes/
+│       │   ├── controllers/
+│       │   └── data/
+│       └── package.json
+└── documentation/
+    ├── architecture.md
+    ├── requirements.md
+    └── CHECKLIST.md
 ```
 
-## Documentation
-All project documentation follows the go-vibe methodology, emphasizing:
-- Documentation-first approach
-- Context-aware code generation
-- Continuous documentation evolution
+## API Endpoints
 
-For detailed documentation, please visit the [documentation](./documentation) directory.
+### Products
+- `GET /api/products` - Get all products
+- `GET /api/products/:id` - Get single product
+- `POST /api/products` - Create product (admin)
+- `PUT /api/products/:id` - Update product (admin)
+- `DELETE /api/products/:id` - Delete product (admin)
 
-### Key Documentation
-- [IDE Rules and Guidelines](./documentation/ide-rules.md)
-- [Architecture Documentation](./documentation/architecture.md)
-- [Project Requirements](./documentation/requirements.md)
-- [API Documentation](./documentation/api/README.md)
-- [Architecture Decisions](./documentation/adr/README.md)
+### Orders
+- `GET /api/orders` - Get user orders
+- `GET /api/orders/:id` - Get single order
+- `POST /api/orders` - Create order
+- `PUT /api/orders/:id` - Update order status (admin)
+- `DELETE /api/orders/:id` - Delete order (admin)
 
-## Development
+### Users
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register` - User registration
+- `GET /api/users` - Get users (admin)
+- `PUT /api/users/:id` - Update user (admin)
+- `DELETE /api/users/:id` - Delete user (admin)
 
-### Setting Up Development Environment
-1. Clone the repository
-2. Install dependencies
-3. Configure IDE according to [IDE Rules](./documentation/ide-rules.md)
-4. Follow the [Development Guide](./documentation/guides/development-setup.md)
+### Admin
+- `GET /api/admin/stats` - Get dashboard statistics
+- `GET /api/admin/products` - Get all products
+- `GET /api/admin/orders` - Get all orders
+- `GET /api/admin/users` - Get all users
 
-### Contributing
-Please read our [Contributing Guidelines](./documentation/guides/contributing.md) before making a contribution.
+## Security Features
 
-## Testing
-[Testing information will be added here]
+- Role-based access control (RBAC)
+- JWT authentication
+- Password hashing
+- Protected admin routes
+- Input validation
+- XSS protection
+- CORS configuration
 
-## Deployment
-[Deployment information will be added here]
+## UI Features
 
-## Built With
-[List of major dependencies and tools]
+- Modern, clean design
+- Responsive layout
+- Interactive product cards
+- Dynamic shopping cart with slide-in panel
+- Form validation
+- Loading states
+- Error handling
+- Success notifications
+- Mobile-first approach
+- Dark/Light theme support
+
+## Color Scheme
+
+- Primary: #0071e3
+- Secondary: #f5f5f7
+- Text (Light): #1d1d1f
+- Text (Dark): #f5f5f7
+- Border (Light): #d2d2d7
+- Border (Dark): #3d3d3d
+- Success: #28a745
+- Danger: #dc3545
+- Warning: #ffc107
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
-- Built following [go-vibe](https://go-vibe.dev/) methodology
-- [Other acknowledgments]
+
+- Design inspired by modern e-commerce platforms
+- Icons provided by Font Awesome
+- Sri Lankan provinces data for shipping

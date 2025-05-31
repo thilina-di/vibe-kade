@@ -1,99 +1,62 @@
-# Project Requirements
+# SmartCart Requirements
 
 ## Overview
-This document outlines the functional and non-functional requirements for the project.
+SmartCart is a simplified e-commerce web application built with vanilla JavaScript on the frontend and Express.js on the backend, using in-memory data storage.
 
-## Functional Requirements
+## Technology Stack
+- **Frontend**: HTML, CSS, JavaScript (Vanilla)
+- **Backend**: Node.js with Express
+- **Storage**: In-memory data structure / JSON
 
-### Core Features
-1. [Feature 1]
-   - Description
-   - Acceptance Criteria
-   - Dependencies
+## Core Features
 
-2. [Feature 2]
-   - Description
-   - Acceptance Criteria
-   - Dependencies
+### 1. User Access and Role-based Experience
+- Two roles:
+  - Customer: Browse, add to cart, place orders
+  - Administrator: Manage products, view/fulfill orders
+- Simple authentication using username/password
+- Role-based access control
 
-## Non-Functional Requirements
+### 2. Product Discovery and Browsing
+- Home page with product display:
+  - Name
+  - Price
+  - Image
+- Search functionality
+- Filter and sort by:
+  - Category
+  - Price (low to high / high to low)
 
-### Performance Requirements
-- Response time
-- Throughput
-- Concurrent users
-- Resource utilization
+### 3. Shopping Cart Management
+- Add products to cart
+  - Sliding cart panel appears from left
+  - Shows recently added item details
+  - Option to view full cart
+- View cart page
+- Change quantity
+- Remove items
+- View order total
 
-### Security Requirements
-- Authentication
-- Authorization
-- Data protection
-- Compliance requirements
+### 4. Checkout Process
+- Checkout page with:
+  - Order summary
+  - Customer details form
+  - Simple delivery cost calculation
+  - Order confirmation message
 
-### Reliability Requirements
-- Availability
-- Fault tolerance
-- Disaster recovery
-- Backup and restore
+### 5. Admin Dashboard
+- Protected admin access
+- Product management:
+  - Add/edit/delete products
+  - Set availability status
+- Order management:
+  - View orders
+  - Update order status
 
-### Scalability Requirements
-- Horizontal scaling
-- Vertical scaling
-- Load handling
-
-### Usability Requirements
-- User interface
-- Accessibility
-- Documentation
-- Error handling
-
-### Maintainability Requirements
-- Code quality
-- Documentation
-- Testing coverage
-- Deployment process
-
-## Technical Requirements
-
-### Platform Requirements
-- Operating systems
-- Browsers
-- Mobile devices
-- Screen resolutions
-
-### Integration Requirements
-- Third-party services
-- APIs
-- External systems
-- Data formats
-
-### Development Requirements
-- Programming languages
-- Frameworks
-- Libraries
-- Tools
-
-### Infrastructure Requirements
-- Hosting
-- Database
-- Storage
-- Network
-
-## Constraints
-
-### Technical Constraints
-- Technology stack
-- Legacy systems
-- Third-party limitations
-
-### Business Constraints
-- Timeline
-- Budget
-- Resources
-- Legal requirements
-
-## Future Considerations
-- Planned features
-- Potential improvements
-- Scalability considerations
-- Technology evolution 
+## Optional Enhancements
+Choose 1-2 from:
+- Save favorite products
+- Theme toggle (Light/Dark)
+- Persistent cart (localStorage)
+- Language selector
+- Order confirmation animation
