@@ -62,7 +62,7 @@ Please read our [Contributing Guidelines](./documentation/guides/contributing.md
 [List of major dependencies and tools]
 
 ## License
-[License information]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 - Built following [go-vibe](https://go-vibe.dev/) methodology
